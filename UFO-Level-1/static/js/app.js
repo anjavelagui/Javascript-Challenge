@@ -19,3 +19,31 @@ var addData = (dataInput) => {
     });
 }
 addData(tableData);
+
+//creating code that will listen search request
+button.on("click", () => {
+    d3.event.preventDefault();
+    var inputDate = inputFieldDate.property("value").trim();
+    var filterDate = tableData.filter(tableData => tableData.datetime === inputDate);
+ $tbody.html("");
+ 
+ let response = {
+     filterData, filterCity, filterDate
+}
+    if (response.filterData.length !== 0) {
+        populate(filterData);
+}
+    else if (response.filterData.length === 0 && ((response.filterCity.length !== 0 || response.filterDate.length !== 0))){
+        populate(filterCity) || populate(filterDate);
+    }
+    else {
+        tbody.append("tr").append("td").text("No found! Try Again!");
+    }
+})
+
+// reseting 
+resetbtn.on("click", () => {
+    tbody.html("");
+    populate(data)
+    console.log("Reset")
+})
